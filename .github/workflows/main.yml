@@ -22,3 +22,9 @@ jobs:
       - name: echo changed files
         run: |
           echo ${{ steps.file_changes.outputs.files }}
+
+      - name: loop changed files
+        run: |
+          for file in "${{ steps.file_changes.outputs.files }}"; do
+            echo "$file was added"
+          done
