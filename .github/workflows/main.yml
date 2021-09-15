@@ -1,0 +1,21 @@
+---
+name: ci
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 100
+          clean: true
+
+      - id: file_changes
+        uses: trilom/file-changes-action@v1.2.3
+        with:
+          output: " "
+          
