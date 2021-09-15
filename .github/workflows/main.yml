@@ -19,3 +19,6 @@ jobs:
         with:
           output: " "
           
+      - name: echo changed files
+        run: |
+          echo ${{ steps.file_changes.outputs.files }}
