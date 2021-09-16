@@ -25,6 +25,10 @@ jobs:
 
       - name: loop changed files
         run: |
-          for file in "${{ steps.file_changes.outputs.files }}"; do
-            echo "$file was added"
+          IFS=' ' read -ra ADDR <<< "${{ steps.file_changes.outputs.files }}"
+          for i in "${ADDR[@]}"; do
+            # process "$i"
+            if (echo $i | perl -nle'exit 0 if m{(?<!test\/)blah.hcl}; exit 1'); then
+              echo "ok : $i";
+            fi;
           done
