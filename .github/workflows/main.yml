@@ -25,9 +25,8 @@ jobs:
 
       - name: loop changed files
         run: |
-          IFS=' ' read -ra ADDR <<< "${{ steps.file_changes.outputs.files }}"
-          for i in "${ADDR[@]}"; do
-            # process "$i"
+          IFS=' ' read -ra changed_files <<< "${{ steps.file_changes.outputs.files }}"
+          for i in "${changed_files[@]}"; do
             if (echo $i | perl -nle'exit 0 if m{(?<!test\/)blah.hcl}; exit 1'); then
               echo "ok : $i";
             fi;
