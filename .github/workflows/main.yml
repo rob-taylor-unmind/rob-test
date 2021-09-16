@@ -28,6 +28,9 @@ jobs:
           IFS=' ' read -ra changed_files <<< "${{ steps.file_changes.outputs.files }}"
           for file in "${changed_files[@]}"; do
             if (echo $file | grep -P '(?<!test\/)blah.hcl'); then
+              pushd "$(dirname "${file}")"
               echo "ok : $file";
+              pwd;
+              popd
             fi;
           done
